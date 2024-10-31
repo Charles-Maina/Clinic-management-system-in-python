@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mmust.ac.ke</title>
+    <style>
+        /* Global styles */
+        body {
+            position: relative;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: rgba(255, 255, 255, 0.8); /* Background color */
+        }
+
+        /* Header styles */
+        .header {
+            background-color: rgb(249, 249, 249);
+            display: flex;
+            /* align-items: center; Center items vertically */
+            height: 90px; /* Same height as the logo */
+            padding: 0; /* Remove padding */
+            position: relative; /* Ensure relative positioning */
+            margin-bottom: 20px;
+        }
+
+        /* Logo styles */
+        .logo {
+            margin-left: 0;
+            margin-right: 0; /* Add margin to separate from other elements */
+            cursor: pointer; /* Add cursor pointer */
+
+
+        }
+        .logo2 {
+
+            margin-right: 1px; /* Add margin to separate from other elements */
+            cursor: pointer; /* Add cursor pointer */
+            position: relative;
+            z-index: 1;
+
+
+        }
+
+
+        /* Paragraph styles */
+        p{
+            color: blue;
+            margin: 0; /* Reset margin */
+            font-weight: bolder;
+            font-size: 13px;
+            margin-top: 30px;
+        }
+
+        p1 {
+            color: blue;
+            font-weight: bold;
+            font-size: 10px;
+            text-decoration: overline;
+            }
+
+            /* text for mmust  */
+
+        .mmustname{
+            margin-right: 50px;
+            padding: 0;
+            text-align: center;
+            cursor: pointer; /* Add cursor pointer */
+
+        }
+
+        /* of the system */
+        .name {
+            font-size: 40px;
+            font-weight: bold;
+            color: blue;
+            margin-top: 0; /* Add margin below the name */
+            cursor: pointer; /* Add cursor pointer */
+        }
+
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+    .header {
+        height: auto; /* Auto height for smaller screens */
+    }
+    .name {
+        font-size: 30px; /* Reduce font size for smaller screens */
+    }
+    p {
+        font-size: 10px; /* Reduce font size for smaller screens */
+    }
+    p1 {
+        font-size: 8px; /* Reduce font size for smaller screens */
+    }
+}
+
+        /* Dropdown styles for ABOUT US button */
+        .dropdown {
+            margin-left: auto; /* Align dropdown to the right */
+            position: absolute; /* Position absolutely */
+            bottom: 0; /* Align at the bottom with some margin */
+            right: 10px; /* Align to the right */
+                        z-index: 4;
+
+
+        }
+
+        .dropdown-content {
+            display: none; /* Make the content flex */
+            position: absolute;
+            right:0;
+            background-color: #f9f9f9;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            z-index: 1;
+            text-align: left;
+            color: black;
+            width: 300px; /* Adjust width to fit content */
+            top: 100%; /* Position dropdown content below the button */
+        }
+
+        .dropdown-content ul {
+            padding-left: 20px; /* Add some left padding to the list */
+            list-style-type: circle;
+        }
+
+        /* Left container for text */
+        .left-container {
+            width: 30%;
+            padding: 0; /* Add some padding */
+            margin-right: 40px;
+        }
+
+        /* Right container for image */
+        .right-container {
+            width: 70%;
+            background-image: url('/static/clinimage.jpg'); /* Add background image */
+            background-size: cover; /* Cover the container */
+            background-position: center; /* Center the background image */
+        }
+
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: flex;
+            text-decoration: none;
+        }
+        .dropbtn{
+            cursor: pointer; /* Add cursor pointer */
+        }
+
+        /* Hover effect for the About Us and Services buttons */
+        .dropbtn:hover {
+            font-weight: bolder;
+            color: blue; /* Change text color to blue on hover */
+        }
+
+        .dropbtn:hover::after {
+            content: ''; /* Add pseudo-element for the underline effect */
+            position: absolute; /* Position the underline */
+            bottom: 0; /* Align it at the bottom */
+            left: 10%; /* Start the underline slightly to the right */
+            width: 60%; /* Set the width to cover almost 60% of the button */
+            height: 3px; /* Height of the underline */
+            background-color: blue; /* Color of the underline */
+        }
+
+        /* Remove underline from links inside dropdown */
+        .dropdown-content a {
+            text-decoration: none;
+            display: block;
+            padding: 5px 0;
+        }
+
+        /* Additional dropdown button styles */
+        .services-dropdown {
+            position: absolute;
+            bottom: 0;
+            right: 80px; /* Position the Services dropdown button */
+        }
+       .arrow {
+  border: solid rgb(88, 88, 88);
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 2px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+        /* Logout button styles */
+        .logout {
+            position: absolute;
+            bottom: 0;
+            right: 10px; /* Position the Logout button */
+            cursor: pointer; /* Add cursor pointer */
+        }
+
+        .logout:hover {
+            color: red; /* Change color on hover */
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="../static/logo.png" alt="loading image" height="90px">
+        </div>
+
+        <div class="mmustname">
+        <p>MASINDE MULIRO UNIVERSITY OF<br>SCIENCE AND TECHNOLOGY</p>
+        <p1>University of Choice</p1>
+    </div>
+        <div class="name">CLINIC MANAGEMENT SYSTEM</div>
+        <!-- Dropdown button for About Us -->
+<!-- <div class="logo2">-->
+<!--            <img src="../static/logo.png" alt="loading image" height="90px">-->
+<!--        </div>-->
+        <div class="dropdown">
+            <button class="dropbtn">About Us
+                <i class="arrow down"></i>
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <!-- Left container for text -->
+                <div class="left-container">
+                    <ul>
+                        <li><a href="/mission">Mission</a></li>
+                        <li><a href="/vision">Vision</a></li>
+                        <li><a href="/corevalues">Core Values</a></li>
+                        <li><a href="contacts">Contacts</a></li>
+                    </ul>
+                </div>
+                <!-- Right container for image -->
+                <div class="right-container"></div>
+            </div>
+
+
+
+        </div>
+<!--        &lt;!&ndash; Dropdown button for Services &ndash;&gt;-->
+<!--        <div class="dropdown services-dropdown">-->
+<!--            <button class="dropbtn">Services-->
+<!--                <i class="arrow down"></i>-->
+<!--                <i class="fa fa-caret-down"></i>-->
+<!--            </button>-->
+<!--            <div class="dropdown-content">-->
+<!--                &lt;!&ndash; Left container for text &ndash;&gt;-->
+<!--                <div class="left-container">-->
+<!--                    <ul>-->
+<!--                  <li><a href="/appointment">Appointment</a></li> &lt;!&ndash; Update this line &ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <li><a href="#Consultations">Consultations</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><a href="#HIV services">HIV services</a></li>&ndash;&gt;-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; Right container for image &ndash;&gt;-->
+<!--                <div class="right-container"></div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <!-- Logout button -->
+
+<!--        <button class="logout" onclick="window.location.href='{{ url_for('logout') }}'">Log Out</button>-->
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+CREATE TABLE patient (
+    username VARCHAR(30) PRIMARY KEY,
+    password VARCHAR(300) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    phone INT NOT NULL,
+    gender ENUM('Male', 'Female', 'Other') NOT NULL,
+    age INT NOT NULL,
+    medical_history TEXT,
+    location VARCHAR(30) NOT NULL,
+    allergies TEXT,
+    blood_group ENUM('A', 'B', 'AB', 'O') NOT NULL,
+    image VARCHAR(255),
+    role ENUM('doctor', 'nurse', 'receptionist', 'employee', 'student','patient') NOT NULL,
+    health_condition ENUM('Respiratory', 'Mental', 'Reproductive', 'STI', 'Injuries', 'Allergic', 'ENT', 'No', 'Other') NOT NULL
+);

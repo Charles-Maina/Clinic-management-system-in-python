@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMPLOYEEPROFILE</title>
+    <style>
+         /* Apply background image to the whole page */
+        body {
+            position: relative; /* Ensure the ::before pseudo-element is positioned relative to the body */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Ensure the body takes up the entire viewport height */
+        }
+ /* title styles */
+        h1 {
+            font-size: 32px;
+            font-weight: bolder;
+            color: blue; /* Text color */
+            margin: 0; /* Add space between the title and the container */
+        }
+
+
+        /* Apply background image to the whole page */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../static/cms0.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.5; /* Adjust the opacity to make the background image very faded */
+            z-index: -1; /* Ensure the pseudo-element stays behind the content */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Background color with reduced opacity */
+            border-radius: 5px;
+            padding: 20px;
+            position: relative; /* Allow positioning of the image */
+            max-width: 900px; /* Added max-width to limit the table to 900px */
+            margin: auto;
+        }
+        .title {
+            font-size: 24px;
+            right: 200px;
+            margin-top : 50px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            position: absolute; /* Position the title absolutely within the container */
+            display: inline-block; /* Ensures the title and image are on the same line */
+            white-space: nowrap; /* Prevent title from wrapping */
+
+        }
+        .image {
+            max-width: 120px; /* Set width to 120px */
+            max-height: 120px; /* Set height to 120px */
+            margin-bottom: 1px;
+            position: absolute; /* Position the image absolutely within the container */
+            top: 20px; /* Distance from the top */
+            left: 20px; /* Distance from the right */
+            border-radius: 50%; /* Make the border circular */
+            border: 2px solid black; /* Add a border around the image */
+            overflow: hidden; /* Hide overflow to maintain circular shape */
+        }
+        table {
+            margin-top: 140px; /* Adjust the top margin to accommodate the image */
+            border-collapse: collapse;
+            max-width: 900px; /* Added max-width to limit the table to 900px */
+            max-width: 100%;
+            border: 1px solid #000; /* Square borders for the entire table */
+            overflow-x: auto;
+             margin-left: auto;
+             margin-right: auto;
+
+
+        }
+
+        .table_container{
+          max-height: 400px; /* Adjust the max height according to your needs */
+            overflow-y: auto; /* Enable vertical scrollbar */
+
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #000; /* Square borders for each cell */
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold; /* Bold headers */
+        }
+        tr:first-child th { /* First row headers */
+            text-align: center; /* Centered headers */
+        }
+
+         /* Styling for links */
+        a.btn-link {
+            background-color: blue; /* Blue background color */
+            color: white; /* White text color */
+            font-weight: bolder;
+            padding: 5px 10px; /* Padding around text */
+            border-radius: 5px; /* Rounded corners */
+            text-decoration: none; /* Remove underline */
+            opacity: 1; /* Full opacity by default */
+            transition: opacity 0.3s; /* Smooth transition for opacity */
+        }
+
+        /* Hover effect */
+        a.btn-link:hover {
+            opacity: 0.9; /* Reduce opacity on hover */
+        }
+
+         /* Notification icon */
+        .notification-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        /* Notification icon styling */
+        .notification-icon img {
+            width: 30px;
+            height: 30px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!--INCLUDE THE HEADER FILE-->
+    {% include 'header.html' %}
+
+
+    <div class="container">
+        <div class="title">
+            WELCOME TO YOUR EMPLOYEE ACCOUNT
+        </div>
+
+        <!-- Image enclosed in a circular border -->
+        <div class="image">
+            <img src="{{ url_for('static', filename='admin1.jpg') }}" alt="Profile Picture" class="logo" width="120px" height="120px">
+        </div>
+
+
+    <!-- Notification icon -->
+    <div class="notification-icon">
+        <a href="{{ url_for('notifications') }}">
+        <img src="{{ url_for('static', filename='bell.jpg') }}" alt="NotificationBell"  width="10px" height="10px">
+        </a>
+    </div>
+
+        {% if employee_user %}
+        <div class="table_container">
+            <table>
+                <tr>
+                    <th colspan="9">Below is your Information:</th> <!-- Horizontal headers -->
+                </tr>
+           <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Location</th>
+            <th>Designation</th>
+            <th>Blood Group</th>
+            <th>Health_Condition</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td>{{ employee_user.name }}</td>
+            <td>{{ employee_user.email }}</td>
+            <td>{{ employee_user.phone }}</td>
+            <td>{{ employee_user.location }}</td>
+            <td>{{ employee_employee.designation }}</td>
+            <td>{{ employee_user.blood_group }}</td>
+            <td>{{ employee_user.health_condition }}</td>
+            <td><a href="/edit_employee" class="btn-link">Edit</a></td> <!-- Edit link -->
+        </tr>
+            </table>
+            </div>
+        {% else %}
+            <p>No employee details found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

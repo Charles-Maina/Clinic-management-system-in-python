@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment</title>
+</head>
+<style>
+    /* Apply background image to the whole page */
+    body {
+        position: relative; /* Ensure the ::before pseudo-element is positioned relative to the body */
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        height: 100vh; /* Ensure the body takes up the entire viewport height */
+    }
+
+    /* Title styles */
+    h1 {
+        font-size: 32px;
+        font-weight: bolder;
+        color: red; /* Text color */
+        margin: 0; /* Add space between the title and the container */
+    }
+
+    /* Apply background image to the whole page */
+    body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('../static/cms0.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: 0.5; /* Adjust the opacity to make the background image very faded */
+        z-index: -1; /* Ensure the pseudo-element stays behind the content */
+    }
+
+    .container {
+        background-color: rgba(255, 255, 255, 0.8); /* Background color with reduced opacity */
+        border-radius: 5px;
+        padding: 20px;
+        position: relative; /* Allow positioning of the image */
+        max-width: 900px; /* Added max-width to limit the table to 900px */
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .title {
+        font-size: 24px;
+        margin-top: 50px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        position: relative; /* Position the title relatively within the container */
+        display: inline-block; /* Ensures the title and image are on the same line */
+        white-space: nowrap; /* Prevent title from wrapping */
+    }
+
+    .table-container {
+        margin-top: 30px; /* Adjust the top margin to accommodate the image */
+        border: 2px solid black; /* Square borders for the entire table */
+        overflow-x: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    table {
+        width: 100%; /* Ensure the table takes up the entire width of the container */
+        border-collapse: collapse; /* Collapse border spacing */
+    }
+
+    th, td {
+        border: 1px solid black; /* Add border to cells */
+        padding: 8px; /* Add padding to cells */
+    }
+</style>
+<body>
+<!-- INCLUDE THE HEADER FILE -->
+{% include 'header.html' %}
+
+<div class="container">
+    <div class="title">WELCOME TO THE APPOINTMENT SCHEDULING PAGE</div>
+
+    <div class="table-container">
+        <table>
+            <h1>Schedule an Appointment</h1>
+            <form id="appointmentForm" action="{{ url_for('appointment') }}" method="post">
+                <tr>
+                    <td>Date:</td>
+                    <td><input type="date" id="date" name="date" required></td>
+                    <td>Time:</td>
+                    <td><input type="time" id="time" name="time" required></td>
+                </tr>
+                <tr>
+                    <td>Select Staff Type:</td>
+                    <td colspan="3">
+                        <select id="staff_type" name="staff_type" required>
+                            <option value="Nurse">Nurse</option>
+                            <option value="Doctor">Doctor</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="designationRow" >
+                    <td>Select Designation:</td>
+                    <td colspan="3">
+                        <select id="designation" name="designation" required></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4"><input type="submit" value="Schedule Appointment"></td>
+                </tr>
+            </form>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.getElementById('staff_type').addEventListener('change', function() {
+        var staffType = this.value;
+        var designationRow = document.getElementById('designationRow');
+
+        // Show or hide the designation row based on staff type
+        if (staffType === 'Nurse' || staffType === 'Doctor') {
+            designationRow.style.display = 'table-row';
+            fetchDesignations(staffType);
+        } else {
+            designationRow.style.display = 'none';
+        }
+    });
+
+    function fetchDesignations(staffType) {
+        // Fetch designations based on staff type using AJAX
+        // Replace the following placeholder code with your actual AJAX call to fetch designations from the server
+        var designations = [];
+        if (staffType === 'Nurse') {
+            // Sample nurse designations
+            designations = ['Nurse Designation 1', 'Nurse Designation 2', 'Nurse Designation 3'];
+        } else if (staffType === 'Doctor') {
+            // Sample doctor designations
+            designations = ['Doctor Designation 1', 'Doctor Designation 2', 'Doctor Designation 3'];
+        }
+
+        // Populate the designation select element with fetched designations
+        var designationSelect = document.getElementById('designation');
+        designationSelect.innerHTML = ''; // Clear previous options
+        designations.forEach(function(designation) {
+            var option = document.createElement('option');
+            option.value = designation;
+            option.textContent = designation;
+            designationSelect.appendChild(option);
+        });
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment</title>
+</head>
+<body>
+    <h1>Schedule an Appointment</h1>
+    <form action="{{ url_for('appointment') }}" method="post">
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <label for="time">Time:</label>
+        <input type="time" id="time" name="time" required><br><br>
+
+        <label for="staff_type">Select Staff Type:</label>
+        <select id="staff_type" name="staff_type" required>
+            <option value="Doctor">Doctor</option>
+            <option value="Nurse">Nurse</option>
+        </select><br><br>
+
+        <label for="designation">Select Designation:</label>
+        <select id="designation" name="designation" required>
+            <!-- Options for designation will be populated dynamically based on staff_type selection -->
+        </select><br><br>
+
+        <label for="staff_member">Select Staff Member:</label>
+        <select id="staff_member" name="staff_member" required>
+            <!-- Options for staff member will be populated dynamically based on the selected designation -->
+        </select><br><br>
+
+        <input type="submit" value="Schedule Appointment">
+    </form>
+
+    <script>
+        document.getElementById('staff_type').addEventListener('change', function() {
+            var staffType = this.value;
+            var designationSelect = document.getElementById('designation');
+            var staffMemberSelect = document.getElementById('staff_member');
+
+            // Clear previous options
+            designationSelect.innerHTML = '';
+            staffMemberSelect.innerHTML = ''; // Clear staff member options
+
+            // Populate options based on staff type
+            if (staffType === 'Doctor') {
+                var doctorOptions = ['Surgeon', 'Gynecologist', 'Allergist', 'General Practitioner'];
+                doctorOptions.forEach(function(option) {
+                    var opt = document.createElement('option');
+                    opt.value = option;
+                    opt.textContent = option;
+                    designationSelect.appendChild(opt);
+                });
+            } else if (staffType === 'Nurse') {
+                var nurseOptions = ['Surgical Nurse', 'Audiologist', 'Orthopedic', 'Emergency Room Nurse', 'General Nurse', 'Allergy Specialist'];
+                nurseOptions.forEach(function(option) {
+                    var opt = document.createElement('option');
+                    opt.value = option;
+                    opt.textContent = option;
+                    designationSelect.appendChild(opt);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

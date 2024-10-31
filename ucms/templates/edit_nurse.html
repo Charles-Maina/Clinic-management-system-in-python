@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EditNurse</title>
+    <style>
+        /* Apply background image to the whole page */
+        body {
+            position: relative; /* Ensure the ::before pseudo-element is positioned relative to the body */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Ensure the body takes up the entire viewport height */
+        }
+
+        /* Apply background image to the whole page */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../static/cms0.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.7; /* Adjust the opacity to make the background image very faded */
+            z-index: -1; /* Ensure the pseudo-element stays behind the content */
+        }
+
+        .container {
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Background color with reduced opacity */
+            border-radius: 5px;
+            padding: 20px;
+            max-width: 700px;
+            overflow-y: auto;
+            max-height: calc(105vh - 200px); /* Limit container height to viewport height minus margin */
+
+            margin : auto;
+
+
+        }
+     
+       /* TITLE STYLES: EDIT .... */
+       .title{
+            font-weight: bolder;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        
+        table {
+            margin: 0 auto;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #000; /* Square borders for the entire table */
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #000; /* Square borders for each cell */
+            
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold; /* Bold headers */
+        }
+
+        tr {
+            text-align: left;
+        }
+        input[type="email"],
+        input[type="text"],
+        textarea {
+            padding: 5px;
+            margin-bottom: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border:none;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            font-weight: bolder;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            display:inline-block;
+            margin: 0 auto; /* Center the button */
+        }
+        input[type="submit"]:hover {
+            opacity: 0.9;
+        }
+        .btn-link {
+    background-color: blue;
+    color: white;
+    font-weight: bolder;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-left: 10px; /* Space between buttons */
+    text-decoration: none;
+        }
+
+         /* Hover effect */
+        a.btn-link:hover {
+            opacity: 0.9; /* Reduce opacity on hover */
+        }
+
+    </style>
+</head>
+<body>
+
+<!--INCLUDE THE HEADER FILE-->
+    {% include 'header.html' %}
+
+    <div class="container">
+        <div class="title"> EDIT NURSE INFORMATION  </div>
+        
+        {% if nurse %}
+        <form action="{{ url_for('update_nurse') }}" method="POST">
+            <input type="hidden" name="username" value="{{ nurse.username }}">
+
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>{{ nurse.user.name }}</th>
+                </tr>
+                <tr>
+                    <th>Username</th>
+                    <th>{{ nurse.username }}</th>
+                </tr>
+
+                <tr>
+                    <th>Designation</th>
+                    <th>{{ nurse.designation }}</th>
+                </tr>
+
+                <tr>
+                    <th>Blood Group</th>
+                    <th>{{ nurse.user.blood_group }}</th>
+                </tr>
+
+                    <tr>
+
+    <th>Email</th>
+    <td><input type="email" name="email" placeholder="Email" value="{{ nurse.user.email }}"
+               pattern="[a-zA-Z0-9._%+-]+@(gmail|yahoo)\.com" title="Please enter a valid Gmail or Yahoo email address"
+               required></td>
+         </tr>
+
+           <tr>
+    <th>Phone</th>
+    <td><input type="tel" name="phone"  value="{{ nurse.user.phone }}" pattern="[0-9]{10}"
+               title="Please enter a 10-digit phone number" required></td>
+            </tr>
+                <tr>
+                    <th>Location</th>
+                    <td><input type="text" name="location" value="{{ nurse.user.location }}"
+                               title="Please enter location"></td>
+                </tr>
+                <tr>
+                    <th>Schedule</th>
+                    <td><input type="text" name="schedule" value="{{ nurse.schedule }}"></td>
+                </tr>
+
+                <tr>
+            <th>Available</th>
+                    <td> <select name="available">
+                    <option value="" disabled selected hidden > Please select nurse availability </option>
+
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+
+                        {{ nurse.available }}   </select> </td>
+                        </tr>
+
+            </table>
+            <input type="submit" value="Update">
+
+<!--            Cancel button that checks the user role and redirects to respective url-->
+          <a class="btn-link" href="{% if user_type == 'admin' %}{{ url_for('manage_nurse') }}{% else %}
+          {{ url_for('nurse_dashboard') }}{% endif %}">Cancel</a>
+
+         </form>
+        {% else %}
+        <!-- If no nurse details found, display a message -->
+        <p>No nurse details found.</p>
+        {% endif %}
+
+<!--        displaying the flash message-->
+         {% if flash_message %}
+            <div class="flash-message">
+                {{ flash_message() }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+

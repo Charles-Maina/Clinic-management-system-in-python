@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDENTPROFILE</title>
+    <style>
+        /* Apply background image to the whole page */
+        body {
+            position: relative;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        
+        /* title styles */
+        h1 {
+            font-size: 32px;
+            font-weight: bolder;
+            color: blue;
+            margin: 0;
+        }
+
+        /* Apply background image to the whole page */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../static/cms0.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            padding: 20px;
+            position: relative;
+            max-width: 900px;
+            margin: auto;
+        }
+        
+        .title {
+            font-size: 24px;
+            right: 200px;
+            margin-top: 50px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            position: absolute;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        
+        .image {
+            max-width: 120px;
+            max-height: 120px;
+            margin-bottom: 1px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            border-radius: 50%;
+            border: 2px solid black;
+            overflow: hidden;
+        }
+        
+        table {
+            margin-top: 150px;
+            border-collapse: collapse;
+            max-width: 900px;
+            border: 1px solid #000;
+            overflow-x: auto;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .table_container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #000;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        tr:first-child th {
+            text-align: center;
+        }
+
+        /* Styling for links */
+        a.btn-link {
+            background-color: blue;
+            color: white;
+            font-weight: bolder;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+
+        /* Hover effect */
+        a.btn-link:hover {
+            opacity: 0.9;
+        }
+
+        /* Notification icon */
+        .notification-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        /* Notification icon styling */
+        .notification-icon img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<!--INCLUDE THE HEADER FILE-->
+{% include 'header.html' %}
+        {% include 'footer.html' %}
+
+<div class="container">
+    <div class="title">
+        WELCOME TO YOUR STUDENT ACCOUNT
+    </div>
+
+    <!-- Image enclosed in a circular border -->
+    <div class="image">
+        <img src="{{ url_for('static', filename='admin1.jpg') }}" alt="Profile Picture" class="logo" width="120px" height="120px">
+    </div>
+
+    <!-- Notification icon -->
+    <div class="notification-icon">
+        <a href="{{ url_for('notifications') }}">
+        <img src="{{ url_for('static', filename='bell.jpg') }}" alt="NotificationBell"  width="10px" height="10px">
+        </a>
+    </div>
+
+    {% if student_user %}
+    <div class="table_container">
+        <table>
+            <tr>
+                <th colspan="9">Below is your Information:</th>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Location</th>
+                <th>Year_Of_Study</th>
+                <th>Blood Group</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td>{{ student_user.name }}</td>
+                <td>{{ student_student.department }}</td>
+                <td>{{ student_user.email }}</td>
+                <td>{{ student_user.phone }}</td>
+                <td>{{ student_user.location }}</td>
+                <td>{{ student_student.year_0f_study }}</td>
+                <td>{{ student_user.blood_group }}</td>
+                <td><a href="{{ url_for('edit_student') }}" class="btn-link">Edit</a></td>
+            </tr>
+        </table>
+    </div>
+    {% else %}
+        <p>No student details found.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>

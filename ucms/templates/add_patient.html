@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Patient</title>
+    <style>
+        /* CSS styles (similar to the previous example) */
+        /* Apply background image to the whole page */
+        body {
+            position: relative;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../static/cms0.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.7;
+            z-index: -1;
+        }
+
+        /* Adjust container styles */
+        .container {
+            margin-top: 50px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(108vh - 200px);
+            margin: auto;
+            max-width: 1000px;
+        }
+
+        .container h1 {
+            font-size: 32px;
+            font-weight: bold;
+            color: blue;
+            margin-bottom: 2px;
+            margin-top: 2px;
+            text-decoration: underline;
+        }
+
+        .container table {
+            margin-top: 14px;
+            width: 100%;
+            border: solid black;
+<!--              border-collapse: collapse;-->
+
+        }
+
+
+            tr , th, td {
+                color: black;
+                font-weight: bold;
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 2px;
+            }
+
+  tr:first-child th { /* First row headers */
+            text-align: center; /* Centered headers */
+        }
+
+            th{
+                text-align: left;
+                max-width:40px;
+            }
+        .container td {
+            padding: 3px;
+
+
+        }
+
+        .container input,
+        .container select,
+        .container textarea {
+            width: calc(100% - 20px); /*Adjust width for two columns with some spacing */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Ensure padding is included in width */
+        }
+
+        .container input[type="submit"] {
+            margin: 20px;
+            width: 20%; /* Make submit button width */
+            margin-top: 2px; /* Add some space above the button */
+            background-color: blue;
+            border-radius: 3px;
+            cursor: pointer;
+            color: white;
+            font-weight: bolder;
+            padding: 5px 10px;
+            height: 35px;
+            text-decoration: none;
+        }
+
+        .container input[type="submit"]:hover {
+            opacity: 0.9;
+        }
+
+      /* Adjust the button styles */
+.container .button {
+    display: inline-block; /* Ensure buttons are inline */
+    margin: 3px;
+    padding: 5px 10px;
+    background-color: blue;
+    color: white;
+    font-weight: bolder;
+    text-decoration: none;
+    border-radius: 3px;
+    margin-top: 1px;
+}
+
+.container .button:hover {
+    opacity: 0.9;
+}
+
+         button[type="submit"] {
+    background-color: blue;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    font-size: 17px;
+    padding: 5px 6px;
+    font-weight: bolder;
+    text-decoration: none; /* Remove underline */
+
+}
+
+
+         /* Styling for links */
+        a.btn-link {
+            background-color: blue; /* Blue background color */
+            color: white; /* White text color */
+            font-weight: bolder;
+            padding: 5px 10px; /* Padding around text */
+            border-radius: 5px; /* Rounded corners */
+            text-decoration: none; /* Remove underline */
+            opacity: 1; /* Full opacity by default */
+            transition: opacity 0.3s; /* Smooth transition for opacity */
+        }
+
+        /* Hover effect */
+        a.btn-link:hover {
+            opacity: 0.9; /* Reduce opacity on hover */
+        }
+
+    </style>
+
+</head>
+<body>
+<!--INCLUDE THE HEADER FILE-->
+{% include 'header.html' %}
+
+<div class="container">
+    <div class="table-container">
+    <h1>Add New Patient</h1>
+
+        <div class="add" style="color: grey; text-align: justify; line-height: 25px; ">
+            This page lets you as a receptionist to add a new patient to the system. To accomplish this, enter the
+            patient information in the following table fields and click the Add Patient button. Pressing this button
+            takes you back to your dashboard.
+        </div>
+    <form action="{{ url_for('add_patient') }}" method="POST">
+        <table>
+            <tr>
+                <th>FIELD</th>
+                <th>VALUE</th>
+            </tr>
+            <tr>
+                <td><label for="username">Username:</label></td>
+                <td><input type="text" id="username" name="username" placeholder="Enter Username"required></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td><input type="password" id="password" name="password" placeholder="Enter Password" required></td>
+            </tr>
+            <!-- Add more rows for other patient details -->
+                 <tr>
+    <td>Name</td>
+    <td><input type="text" name="name" placeholder="Name" pattern="[A-Za-z\s]+" title="Please enter only letters" required></td>
+    </tr>
+
+        <tr>
+    <td>Email</td>
+    <td><input type="email" name="email" placeholder="Email" pattern="[a-zA-Z0-9._%+-]+@(gmail|yahoo)\.com" title="Please enter a valid Gmail or Yahoo email address" required></td>
+         </tr>
+
+           <tr>
+    <td>Phone</td>
+    <td><input type="tel" name="phone" placeholder="Phone" pattern="[0-9]{10}" title="Please enter a 10-digit phone number" required></td>
+            </tr>
+
+            <tr>
+                <td><label for="gender">Gender:</label></td>
+                <td>
+                    <select id="gender" name="gender" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+               <tr> <td>Age</td>
+        <td><input type="text" name="age" placeholder="Enter the age in years" pattern="[0-9]+" title="Please enter only numeric values for age" required></td>
+            </tr>
+  <tr> <td>Weight</td>
+   <td><input type="text" id="weight" name="weight" placeholder="Enter Weight" pattern="\d+(\.\d+)?" title="Enter a number, optionally with a decimal point"> </td>
+  </tr>
+                <td><label for="medical_history">Medical History:</label></td>
+                <td><textarea id="medical_history" name="medical_history"></textarea></td>
+
+            <tr>
+                <td><label for="location">Location:</label></td>
+                <td><input type="text" id="location" name="location" placeholder="Enter Location" required></td>
+            </tr>
+            <tr>
+                <td><label for="allergies">Allergies:</label></td>
+                <td><textarea id="allergies" name="allergies"></textarea></td>
+            </tr>
+            <!-- Add more rows for other patient details -->
+            <tr>
+                <td><label for="blood_group">Blood Group:</label></td>
+                <td>
+                    <select id="blood_group" name="blood_group" required>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="AB">AB</option>
+                        <option value="O">O</option>
+                    </select>
+                </td>
+            </tr>
+<!--            <tr>-->
+<!--                <td><label for="image">Image:</label></td>-->
+<!--                <td><input type="text" id="image" name="image"></td>-->
+<!--            </tr>-->
+            <tr>
+                <td><label for="health_condition">Health Condition:</label></td>
+                <td>
+                    <select id="health_condition" name="health_condition" required>
+                        <option value="Respiratory">Respiratory</option>
+                        <option value="Mental">Mental</option>
+                        <option value="Reproductive">Reproductive</option>
+                        <option value="STI">STI</option>
+                        <option value="Injuries">Injuries</option>
+                        <option value="Allergic">Allergic</option>
+                        <option value="ENT">ENT</option>
+                        <option value="No">No</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <br><button type="submit">Add Patient</button>
+         <a class="btn-link" href="{{ url_for('receptionist_dashboard') }}">Back</a>
+
+    </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!-- surgeon_dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllergistDashboard</title>
+<style>
+
+        body {
+            position: relative; /* Ensure the ::before pseudo-element is positioned relative to the body */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Ensure the body takes up the entire viewport height */
+        }
+
+        /* Apply background image to the whole page */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../static/cms00.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.5; /* Adjust the opacity to make the background image very faded */
+            z-index: -1; /* Ensure the pseudo-element stays behind the content */
+        }
+
+        /* Adjust container styles */
+        .container {
+
+            background-color: rgba(255, 255, 255, 0.8); /* Background color with reduced opacity */
+            border-radius: 5px;
+            padding: 20px;
+            overflow-y:auto; /* Disabled vertical scrolling within the container */
+            max-height: calc(105vh - 200px); /* Limit container height to viewport height minus margin */
+            margin: auto; /* Center container horizontally */
+            max-width: 1300px; /* Set max-width to prevent container from spanning the entire viewport */
+        }
+
+
+        /* Table styles */
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #000; /* Square borders for the entire table */
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #000; /* Square borders for each cell */
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold; /* Bold headers */
+        }
+
+        tr:first-child th { /* First row headers */
+            text-align: center; /* Centered headers */
+        }
+
+        h1{
+            color: blue;
+            text-decoration: underline;
+            margin: 0;
+        }
+            h2{
+                text-align: justify;
+                color: rgb(129, 126, 126);
+                line-height: 30px;
+              }
+
+      /* Add new button styles */
+          .back-btn {
+            background-color: blue; /* Blue background color */
+            color: white; /* White text color */
+            text-decoration: none; /* Remove default underline */
+            border-radius: 10px; /* Rounded corners */
+            padding: 10px 20px; /* Add padding to create button-like appearance */
+            display: inline-block; /* Ensure the button is displayed inline */
+            margin-top: 20px; /* Add margin at the top */
+        }
+
+        /* Add new button hover effect */
+        .back-btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-link {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-left: 40px; /* Space between buttons */
+    margin-top: 70px;
+    text-decoration: none;
+        }
+
+
+    </style>
+
+
+</head>
+ <!-- Include the header file -->
+    {% include 'header.html' %}
+
+
+    <div class="container">
+        <h1>Allergist Dashboard</h1>
+        <!-- Display users with allergies -->
+        <h2>The following is a listing of all the users who have allergic reactions to different substances as illustrated in the table</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Username</th>
+                    <th>Location</th>
+                    <th>Medical History</th>
+                    <th>Health Condition</th>
+                    <th>Allergies</th>
+                    <th>Blood Group</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+
+                </tr>
+            </thead>
+            <tr>
+                {% for user in users_with_allergies %}
+                    <tr>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.role }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.location }}</td>
+                        <td>{{ user.medical_history }}</td>
+                        <td>{{ user.health_condition }}</td>
+                        <td>{{ user.allergies }}</td>
+                        <td>{{ user.blood_group }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.phone }}</td>
+
+                    </tr>
+                {% endfor %}
+            </tr>
+        </table>
+
+                <a class="back-btn" href="{{ url_for('nurse_dashboard') }}">Back</a>
+
+         <!-- Link to view doctors who are allergists -->
+        <a class="btn-link" href="{{ url_for('viewallergist') }}">View Doctors</a>
+
+    </div>
+</body>
+</html>

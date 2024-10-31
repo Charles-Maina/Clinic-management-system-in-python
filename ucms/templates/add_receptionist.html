@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AddReceptionist</title>
+    <style>
+        body {
+            position: relative;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../static/cms00.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.7;
+            z-index: -1;
+        }
+
+        /* Adjust container styles */
+        .container {
+            margin-top: 50px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(105vh - 200px);
+            margin: auto;
+            max-width: 1000px;
+        }
+
+        .container h1 {
+            font-size: 32px;
+            font-weight: bold;
+            color: blue;
+            margin-bottom: 2px;
+        }
+
+        .container table {
+            width: 100%;
+            border: solid black;
+        }
+
+
+            tr , th, td {
+                color: black;
+                font-weight: bold;
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 2px;
+            }
+
+
+
+            th{
+                text-align: left;
+                max-width:40px;
+            }
+        .container td {
+            padding: 3px;
+
+
+        }
+
+        .container input,
+        .container select,
+        .container textarea {
+            width: calc(100% - 20px); /*Adjust width for two columns with some spacing */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Ensure padding is included in width */
+        }
+
+        .container input[type="submit"] {
+            margin: 20px;
+            width: 20%; /* Make submit button width */
+            margin-top: 2px; /* Add some space above the button */
+            background-color: blue;
+            border-radius: 3px;
+            cursor: pointer;
+            color: white;
+            font-weight: bolder;
+            padding: 5px 10px;
+            height: 35px;
+            text-decoration: none;
+        }
+
+        .container input[type="submit"]:hover {
+            opacity: 0.9;
+        }
+
+      /* Adjust the button styles */
+.container .button {
+    display: inline-block; /* Ensure buttons are inline */
+    margin: 3px;
+    padding: 5px 10px;
+    background-color: blue;
+    color: white;
+    font-weight: bolder;
+    text-decoration: none;
+    border-radius: 3px;
+    margin-top: 1px;
+}
+
+.container .button:hover {
+    opacity: 0.9;
+}
+
+    </style>
+</head>
+<body>
+
+<!--INCLUDE THE HEADER FILE-->
+{% include 'header.html' %}
+
+<div class="container">
+    <h1>Add A New Receptionist</h1>
+    <!-- Form for adding a new nurse-->
+    <form action="/add_receptionist" method="POST">
+        <table>
+
+            <tr>
+                <th>Username</th>
+                <td><input type="text" name="username" placeholder="username" title="Use varchar in the format SIT/B/01-00000/2024" required>
+            </tr>
+
+             <tr>
+                <th>Password</th>
+                <td><input type="password" name="password" placeholder="password" required></td>
+            </tr>
+
+            <tr>
+    <th>Name</th>
+    <td><input type="text" name="name" placeholder="Name" pattern="[A-Za-z\s]+" title="Please enter only letters" required></td>
+    </tr>
+
+        <tr>
+    <th>Email</th>
+    <td><input type="email" name="email" placeholder="Email" pattern="[a-zA-Z0-9._%+-]+@(gmail|yahoo)\.com" title="Please enter a valid Gmail or Yahoo email address" required></td>
+         </tr>
+
+           <tr>
+    <th>Phone</th>
+    <td><input type="tel" name="phone" placeholder="Phone" pattern="[0-9]{10}" title="Please enter a 10-digit phone number" required></td>
+            </tr>
+
+            <tr>
+                <th>Gender</th>
+                <td>
+                    <select name="gender" required>
+                        <option value="" disabled selected hidden>Please select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </td>
+            </tr>
+
+          <tr> <th>Age</th>
+        <td><input type="text" name="age" placeholder="Age" pattern="[0-9]+" title="Please enter only numeric values for age" required></td>
+            </tr>
+
+            <tr>
+                <th>Location</th>
+                <td><input type="text" name="location" placeholder="Location" required></td>
+            </tr>
+
+              <tr>
+     <th>Year Of Employment</th>
+        <td><input type="text" name="year_of_employment" placeholder="Year of employment" pattern="[0-9]{4}" title="Please enter only 4 digit numeric values i.e 2024 " required></td>
+</tr>
+
+              <tr>
+     <th>Designation</th>
+        <td><input type="text" name="designation" placeholder="Designation" pattern="[A-Za-z\s]+" title="Please enter only text values for designation i.e gynecologist" required></td>
+</tr>
+                 <tr>
+     <th>Schedule</th>
+        <td><input type="text" name="schedule" placeholder="Schedule" pattern="[a-zA-Z0-9._%+-]+" title="Please enter the nurse schedule" required></td>
+</tr>
+
+
+           <tr>
+    <th>Medical History</th>
+    <td>
+        <textarea id="medical-history" name="medical_history" placeholder="Medical History" required title="Please enter medical history"></textarea>
+    </td>
+</tr>
+
+  <tr>
+    <th>Allergies</th>
+    <td><input type="text" name="allergies" placeholder="Allergies" pattern="[A-Za-z\s]+" title="Please enter only letters" required></td>
+    </tr>
+
+
+             <tr>
+                <th>Blood Group</th>
+                <td>
+                     <select name="blood_group" required>
+                <option value="" disabled selected hidden>Please select Blood Group</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+                <option value="O">O</option>
+            </select><br>
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>Health Condition</th>
+            <td>
+                   <select name="health_condition">
+                <option value="" disabled selected hidden>Please select Health Condition</option>
+                <option value="Respiratory">Respiratory</option>
+                <option value="Mental">Mental</option>
+                <option value="Reproductive">Reproductive</option>
+                <option value="STI">STI</option>
+                <option value="Injuries">Injuries</option>
+                <option value="Allergic">Allergic</option>
+                <option value="ENT">ENT</option>
+                <option value="No">No</option>
+                <option value="Other">Other</option>
+            </select><br>
+            </td>
+
+            </tr>
+
+             <tr>
+                    <th>Availability</th>
+                    <td><select name="available">
+                <option value="" disabled selected hidden>Please select Receptionist Availability</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select></td>
+                </tr>
+
+           <!-- Add Nurse and Back buttons -->
+           <tr>
+            <td colspan="2">
+                <input type="submit" value="Add Receptionist" class="button">
+                <a href="{{ url_for('manage_receptionist') }}" class="button">Back</a>
+            </td>
+        </tr>
+
+
+          <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the textarea element
+    var medicalHistoryField = document.getElementById("medical-history");
+
+    // Counter to keep track of the numbering
+    var counter = 1;
+
+    // Event listener for the textarea element
+    medicalHistoryField.addEventListener("keydown", function(event) {
+        // Check if the enter key is pressed
+        if (event.key === "Enter") {
+            // Append the next number and a period to the textarea value
+            medicalHistoryField.value += "\n" + (++counter) + ". ";
+
+            // Prevent the default behavior of the enter key
+            event.preventDefault();
+        }
+    });
+
+    // Event listener for clicking on the textarea element
+    medicalHistoryField.addEventListener("focus", function() {
+        // Check if the textarea is empty
+        if (!medicalHistoryField.value.trim()) {
+            // Append the initial number and a period to the textarea value
+            medicalHistoryField.value = (counter++) + ". ";
+        }
+    });
+});
+</script>
+
+
+
+
+    </table>
+</form>
+</div>
+</body>
+</html>

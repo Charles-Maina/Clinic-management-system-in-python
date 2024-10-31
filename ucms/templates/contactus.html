@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission</title>
+    <style>
+        /* Apply background image to the whole page */
+        body {
+            position: relative; /* Ensure the ::before pseudo-element is positioned relative to the body */
+            font-family: Arial, sans-serif;
+            text-align: center; /* Center-align text in the body */
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Ensure the body takes up the entire viewport height */
+        }
+
+        /* Title styles */
+        .title {
+            font-size: 30px;
+            font-weight: bolder;
+            color: blue; /* Text color */
+            margin-top: 0; /* Remove space between the title and the container */
+            margin-bottom: 15px;
+            text-decoration: underline
+            text-align: center; /* Center-align the title */
+        }
+
+        /* Apply background image to the whole page */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../static/cms1.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.5; /* Adjust the opacity to make the background image very faded */
+            z-index: -1; /* Ensure the pseudo-element stays behind the content */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Background color with reduced opacity */
+            border-radius: 5px;
+            padding: 20px;
+            position: relative; /* Allow positioning of the image */
+            max-width: 900px; /* Added max-width to limit the table to 900px */
+            margin: auto;
+
+        }
+        p9{
+        color: red;
+        text-align: left;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<!-- INCLUDE THE HEADER FILE -->
+{% include 'header.html' %}
+{% include 'footer.html' %}
+
+<div class="container">
+    <div class="title">MMUST CLINIC HELP FASCILITY</div>
+
+    <br>
+    <!-- Text content -->
+    <p9 style="font-size: 30px; margin: 15px; text-height: 35px;">WELCOME TO OUR HELP OPTIONS PAGE.</p9> <br> <br>
+
+ <p7 style="align-items: left">UCMS is made up by a team of experts who are dedicated to providing special help to all its users.
+ Below are contact details of our technicians.</p7> <br><br>
+    <p8>Email : MAINACHARLESMCA@GMAIL.COM</p8><br>
+    <p8>Number : 0110053971</p8> <br>
+</div>
+
+</body>
+</html>

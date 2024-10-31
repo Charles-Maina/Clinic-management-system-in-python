@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: transparent; /* No background color */
+            background-image: url('../static/cms5.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.9; /* Adjust the opacity as needed */
+        }
+
+        .container {
+            width: 300px;
+            margin: auto; /* Center horizontally */
+            margin-top: 20px; /* Adjust vertical margin */
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            padding-top: 50px; /* Adding space for the logo and title */
+            padding-bottom: 15px; /* Adjusting padding */
+        }
+
+        .title {
+            font-size: 50px; /* Reduced font size for title */
+            font-weight:bolder;
+            margin-top: 20px; /* Reduced margin-top for title */
+            margin-bottom: 10px; /* Reduced margin-bottom for title */
+            color: rgb(0, 89, 255); /* Text color */
+            padding-bottom: 2px;
+        }
+
+        .logo {
+            max-width: 170px; /* Increased size of the logo */
+            margin-top: 10px; /* Reduced margin-top for the logo */
+        }
+
+        .login-box {
+            padding-left: 20px; /* Reduced padding for login box */
+            padding-right: 20px;
+            padding-bottom: 5px;
+            padding-top: 6px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            text-align:center;
+        }
+
+        button {
+            background-color: #0672ff;
+            color: white;
+            padding: 10px 40px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px; /* Adding margin between buttons */
+
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
+
+        a{
+        text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="title">Masinde Muliro University Clinic Management System</div>
+
+    <!-- University Logo -->
+    <img src="../static/logo.png" alt="University Logo" class="logo" width="150px">
+    <h3>Please fill in your details to log in.</h3>
+    <!-- Container for Login Box -->
+    <div class="container">
+        <div class="login-box">
+
+            <!-- Login Form -->
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Enter Employee No/Student No." required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your Password" required>
+                </div>
+                <button type="submit">LOG IN</button>
+
+<!--                 &lt;!&ndash;  &ndash;&gt;-->
+
+                <a href="/forgot_password">Forgot Password?</a>
+                    <br><br>
+                 <!-- Signup Button -->
+                <button type="button" onclick="window.location.href='/signup'">SIGN UP</button>
+            </form>
+
+            <!-- Flash Message -->
+            <p id="flash-message" class="error-message hidden">{{ get_flashed_messages(with_categories=true) }}</p>
+        </div>
+    </div>
+
+    <!-- Script for Flash Messages -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var flashMessage = document.getElementById('flash-message');
+            if (flashMessage.innerHTML.trim() !== '') {
+                flashMessage.classList.remove('hidden');
+                setTimeout(function() {
+                    flashMessage.style.opacity = '0';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

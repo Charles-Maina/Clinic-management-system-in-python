@@ -1,0 +1,161 @@
+<!-- Update the appointment.html template -->
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment</title>
+
+
+ <style>
+        /* Apply background image to the whole page */
+        body {
+            position: relative; /* Ensure the ::before pseudo-element is positioned relative to the body */
+            font-family: Arial, sans-serif;
+            text-align: center; /* Center-align text in the body */
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Ensure the body takes up the entire viewport height */
+        }
+
+        /* Title styles */
+        .title {
+            font-size: 30px;
+            font-weight: bolder;
+            color: blue; /* Text color */
+            margin-top: 0; /* Remove space between the title and the container */
+            margin-bottom: 15px;
+            text-decoration: underline
+            text-align: center; /* Center-align the title */
+        }
+
+        /* Apply background image to the whole page */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../static/cms0.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.5; /* Adjust the opacity to make the background image very faded */
+            z-index: -1; /* Ensure the pseudo-element stays behind the content */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Background color with reduced opacity */
+            border-radius: 5px;
+            padding: 20px;
+            position: relative; /* Allow positioning of the image */
+            max-width: 900px; /* Added max-width to limit the table to 900px */
+            margin: auto;
+
+        }
+        p9{
+        color: red;
+        text-align: left;
+        }
+ table {
+            margin-top: 10px; /* Adjust the top margin to accommodate the image */
+            border-collapse: collapse;
+            max-width: 900px; /* Added max-width to limit the table to 900px */
+            max-width: 100%;
+            border: 1px solid #000; /* Square borders for the entire table */
+            overflow-x: auto;
+             margin-left: auto;
+             margin-right: auto;
+        }
+
+        .table_container{
+          max-height: 400px; /* Adjust the max height according to your needs */
+            overflow-y: auto; /* Enable vertical scrollbar */
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #000; /* Square borders for each cell */
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold; /* Bold headers */
+        }
+        tr:first-child th { /* First row headers */
+            text-align: center; /* Centered headers */
+        }
+
+    </style>
+
+</head>
+<body>
+ <!--INCLUDE THE HEADER FILE-->
+    {% include 'header.html' %}
+         {% include 'footer.html' %}
+
+
+    <div class="container">
+        <div class="title">SCHEDULE AN APPOINTMENT</div>
+        <div class="table-container">
+            <table>
+    <form action="{{ url_for('appointment') }}" method="post">
+       <tr>
+           <th>
+
+           <label for="date">Date:</label> </th>
+        <input type="date" id="date" name="date" required><br><br>
+</tr>
+        <label for="time">Time:</label>
+        <input type="time" id="time" name="time" required><br><br>
+
+        <label for="staff_type">Select Staff Type:</label>
+        <select id="staff_type" name="staff_type" required>
+            <option value="Doctor">Doctor</option>
+            <option value="Nurse">Nurse</option>
+        </select><br><br>
+
+        <label for="designation">Select Designation:</label>
+        <select id="designation" name="designation" required>
+            <!-- Options for designation will be populated dynamically based on staff_type selection -->
+        </select><br><br>
+
+        <input type="submit" value="Schedule Appointment">
+    </form>
+</table>   <script>
+        // JavaScript to dynamically populate the designation select element based on the selected staff type
+        document.getElementById('staff_type').addEventListener('change', function() {
+            var staffType = this.value;
+            var designationSelect = document.getElementById('designation');
+
+            // Clear previous options
+            designationSelect.innerHTML = '';
+
+            // Populate options based on staff type
+            if (staffType === 'Doctor') {
+                // Options for doctor designation
+                var doctorOptions = ['Surgeon', 'Gynecologist', 'Allergist', 'General Practitioner'];
+                doctorOptions.forEach(function(option) {
+                    var opt = document.createElement('option');
+                    opt.value = option;
+                    opt.textContent = option;
+                    designationSelect.appendChild(opt);
+                });
+            } else if (staffType === 'Nurse') {
+                // Options for nurse designation
+                var nurseOptions = ['Surgical Nurse', 'Audiologist', 'Orthopedic', 'Emergency Room Nurse', 'General Nurse', 'Allergy Specialist'];
+                nurseOptions.forEach(function(option) {
+                    var opt = document.createElement('option');
+                    opt.value = option;
+                    opt.textContent = option;
+                    designationSelect.appendChild(opt);
+                });
+            }
+        });
+    </script>
+            </table>
+            </div>
+    </div>
+</body>
+</html>

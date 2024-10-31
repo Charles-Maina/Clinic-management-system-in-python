@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <style>
+         body {
+            position: relative; /* Ensure the ::before pseudo-element is positioned relative to the body */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Ensure the body takes up the entire viewport height */
+        }
+
+        /* Apply background image to the whole page */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../static/cms00.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.7; /* Adjust the opacity to make the background image very faded */
+            z-index: -1; /* Ensure the pseudo-element stays behind the content */
+        }
+
+        .container {
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Background color with reduced opacity */
+            border-radius: 5px;
+            padding: 20px;
+            max-width: 700px;
+            overflow-y: auto;
+            max-height: calc(105vh - 200px); /* Limit container height to viewport height minus margin */
+
+            margin : auto;
+
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: bold;
+            color: blue;
+            margin-bottom: 2px;
+            margin-top: 2px;
+            text-decoration: underline;
+            }
+
+       /* TITLE STYLES: EDIT .... */
+       .title{
+            font-weight: bolder;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            margin: 0 auto;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #000; /* Square borders for the entire table */
+        }
+
+
+  tr:first-child th { /* First row headers */
+            text-align: center; /* Centered headers */
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #000; /* Square borders for each cell */
+
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold; /* Bold headers */
+        }
+
+        tr {
+            text-align: left;
+        }
+        input[type="email"],
+        input[type="text"],
+        textarea {
+            padding: 5px;
+            margin-bottom: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border:none;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            font: bolder;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            display:inline-block;
+            margin: 0 auto; /* Center the button */
+        }
+        input[type="submit"]:hover {
+            opacity: 0.9;
+        }
+        .btn-link {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-left: 10px; /* Space between buttons */
+    text-decoration: none;
+        }
+
+  /* Hover effect */
+        a.btn-link:hover {
+            opacity: 0.9; /* Reduce opacity on hover */
+        }
+    </style>
+</head>
+<body>
+
+    {% include 'header.html' %}
+
+<div class="container">
+    <div class="table-container">
+    <h2>ACCOUNT SIGNUP</h2>
+
+          <div class="add" style="color: grey; text-align: justify; line-height: 25px; ">
+            This page lets you to Sign Up your account. Fill in the details in this form and click on signup button
+              at the end of this form or click on Cancel to cancel the signup process.
+        </div>
+
+    <form action="/signup" method="post">
+        <table>
+             <tr>
+                <th>FIELD</th>
+                <th>VALUE</th>
+            </tr>
+            <tr>
+                <th><label for="username">Username:</label></th>
+                <td><input type="text" id="username" name="username" required></td>
+            </tr>
+
+            <th><label for="designation">Designation:</label></th>
+            <td>
+                <select id="designation" name="designation" >
+                    <option value="Medical_Admin">Medical Admin</option>
+                    <option value="General Admin">General Admin</option>
+                </select>
+
+            <tr>
+                <th><label for="password">Password:</label></th>
+                <td><input type="password" id="password" name="password" required></td>
+            </tr>
+            <tr>
+    <th>Name</th>
+    <td><input type="text" name="name" placeholder="Name" pattern="[A-Za-z\s]+" title="Please enter only letters" required></td>
+    </tr>
+
+        <tr>
+    <th>Email</th>
+    <td><input type="email" name="email" placeholder="Email" pattern="[a-zA-Z0-9._%+-]+@(gmail|yahoo)\.com" title="Please enter a valid Gmail or Yahoo email address" required></td>
+         </tr>
+
+           <tr>
+    <th>Phone</th>
+    <td><input type="tel" name="phone" placeholder="Phone" pattern="[0-9]{10}" title="Please enter a 10-digit phone number" required></td>
+            </tr>
+
+            <tr>
+                <th><label for="gender">Gender:</label></th>
+                <td>
+                    <select id="gender" name="gender" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="age">Age:</label></th>
+                <td><input type="number" id="age" name="age" required></td>
+            </tr>
+            <tr>
+                <th><label for="medical_history">Medical History:</label></th>
+                <td><textarea id="medical_history" name="medical_history"></textarea></td>
+            </tr>
+            <tr>
+                <th><label for="location">Location:</label></th>
+                <td><input type="text" id="location" name="location" required></td>
+            </tr>
+            <tr>
+                <th><label for="allergies">Allergies:</label></th>
+                <td><textarea id="allergies" name="allergies"></textarea></td>
+            </tr>
+            <tr>
+                <th><label for="blood_group">Blood Group:</label></th>
+                <td>
+                    <select id="blood_group" name="blood_group" required>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="AB">AB</option>
+                        <option value="O">O</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="image">Image:</label></th>
+                <td><input type="text" id="image" name="image"></td>
+            </tr>
+            <tr>
+                <th><label for="health_condition">Health Condition:</label></th>
+                <td>
+                    <select id="health_condition" name="health_condition" required>
+                        <option value="Respiratory">Respiratory</option>
+                        <option value="Mental">Mental</option>
+                        <option value="Reproductive">Reproductive</option>
+                        <option value="STI">STI</option>
+                        <option value="Injuries">Injuries</option>
+                        <option value="Allergic">Allergic</option>
+                        <option value="ENT">ENT</option>
+                        <option value="No">No</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Sign Up">
+        <a class="btn-link" href="{{ url_for('login') }}">Cancel</a>
+
+
+    </form>
+        </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!-- surgeon_dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewSurgeon</title>
+<style>
+
+        body {
+            position: relative; /* Ensure the ::before pseudo-element is positioned relative to the body */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Ensure the body takes up the entire viewport height */
+        }
+
+        /* Apply background image to the whole page */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../static/cms00.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.5; /* Adjust the opacity to make the background image very faded */
+            z-index: -1; /* Ensure the pseudo-element stays behind the content */
+        }
+
+        /* Adjust container styles */
+        .container {
+
+            background-color: rgba(255, 255, 255, 0.8); /* Background color with reduced opacity */
+            border-radius: 5px;
+            padding: 20px;
+            overflow-y:auto; /* Disabled vertical scrolling within the container */
+            max-height: calc(105vh - 200px); /* Limit container height to viewport height minus margin */
+            margin: auto; /* Center container horizontally */
+            max-width: 1300px; /* Set max-width to prevent container from spanning the entire viewport */
+        }
+
+
+        /* Table styles */
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #000; /* Square borders for the entire table */
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #000; /* Square borders for each cell */
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold; /* Bold headers */
+        }
+
+        tr:first-child th { /* First row headers */
+            text-align: center; /* Centered headers */
+        }
+
+        h1{
+            color: blue;
+            text-decoration: underline;
+            margin: 0;
+        }
+            h2{
+                text-align: justify;
+                color: rgb(129, 126, 126);
+                line-height: 30px;
+              }
+
+       .btn-link {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-left: 40px; /* Space between buttons */
+    text-decoration: none;
+        }
+
+
+    </style>
+
+
+</head>
+
+<body>
+ <!-- Include the header file -->
+    {% include 'header.html' %}
+
+    <div class="container">
+        <h1>Surgeon Dashboard</h1>
+        <!-- Display doctors who have surgeon skills -->
+        <h2>The following is a listing of all the doctors who can provide surgical procedures and treatment</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Designation</th>
+                    <th>Schedule</th>
+                    <th>Availability</th>
+
+<!--                    <th>Allergies</th>-->
+                    <th>Email</th>
+                    <th>Phone Number</th>
+
+                </tr>
+            </thead>
+            <tr>
+                {% for doctor in surgeon %}
+                    <tr>
+                        <td>{{ doctor.user.name }}</td>
+                        <td>{{ doctor.designation }}</td>
+                        <td>{{ doctor.schedule }}</td>
+                        <td>{{ doctor.available }}</td>
+
+<!--                        <td>{{ doctor.user.allergies }}</td>-->
+                        <td>{{ doctor.user.email }}</td>
+
+                        <td>{{ doctor.user.phone }}</td>
+
+                    </tr>
+                {% endfor %}
+        </table> <br><br>
+
+
+          <a class="btn-link" href="{{ url_for('nurse_dashboard') }}">Back</a>
+
+
+    </div>
+</body>
+</html>

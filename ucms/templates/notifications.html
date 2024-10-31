@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification</title>
+    <style>
+ <style>
+        /* Apply background image to the whole page */
+        body {
+            position: relative;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        /* title styles */
+        h1 {
+            font-size: 32px;
+            font-weight: bolder;
+            color: blue;
+            margin: 0;
+        }
+
+        /* Apply background image to the whole page */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../static/cms1.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            padding: 20px;
+            position: relative;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .title {
+            font-size: 24px;
+            right: 200px;
+            margin-top: 50px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            position: absolute;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .image {
+            max-width: 120px;
+            max-height: 120px;
+            margin-bottom: 1px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            border-radius: 50%;
+            border: 2px solid black;
+            overflow: hidden;
+        }
+
+
+
+          </style>
+</head>
+<body>
+
+<!--INCLUDE THE HEADER FILE-->
+    {% include 'header.html' %}
+{% include 'footer.html' %}
+    <div class="notification">
+        <h2>Welcome to Notifications Page</h2>
+        <p>No notifications currently</p>
+<!--        <p>Date and Time: {{ appointment_info.date_and_time }}</p>-->
+<!--        <p>Doctor/Nurse: {{ appointment_info.doctor_name }}</p>-->
+<!--        <p>Email: {{ appointment_info.doctor_email }}</p>-->
+<!--        <p>Phone: {{ appointment_info.doctor_phone }}</p>-->
+<!--        &lt;!&ndash; Add any other appointment information you want to display &ndash;&gt;-->
+    </div>
+</body>
+</html>

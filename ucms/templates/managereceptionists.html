@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManageReceptionist</title>
+    <style>
+        body {
+            position: relative; /* Ensure the ::before pseudo-element is positioned relative to the body */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Ensure the body takes up the entire viewport height */
+        }
+
+        /* Apply background image to the whole page */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../static/cms00.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.5; /* Adjust the opacity to make the background image very faded */
+            z-index: -1; /* Ensure the pseudo-element stays behind the content */
+        }
+
+        /* Adjust container styles */
+        .container {
+           
+            background-color: rgba(255, 255, 255, 0.8); /* Background color with reduced opacity */
+            border-radius: 5px;
+            padding: 20px;
+            overflow-y:auto; /* Disabled vertical scrolling within the container */
+            max-height: calc(105vh - 200px); /* Limit container height to viewport height minus margin */
+            margin: auto; /* Center container horizontally */
+            max-width: 1300px; /* Set max-width to prevent container from spanning the entire viewport */
+        }
+
+        /* Link button styles */
+        .container a.button {
+            display: block;
+            margin: 5px auto; /* Center the button */
+            padding: 5px 8px;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            max-width: 50px;
+        }
+
+        /* Edit button */
+        .container a.edit-button {
+            background-color: blue;
+        }
+
+        /* Delete button */
+        .container a.delete-button {
+            background-color: brown;
+        }
+
+        /* Link button hover effect */
+        .container a.button:hover {
+            opacity: 0.9;
+        }
+
+          /* Add new receptionist button styles */
+          .add-receptionist-button {
+            background-color: blue; /* Blue background color */
+            color: white; /* White text color */
+            text-decoration: none; /* Remove default underline */
+            border-radius: 10px; /* Rounded corners */
+            padding: 10px 20px; /* Add padding to create button-like appearance */
+            display: inline-block; /* Ensure the button is displayed inline */
+            margin-top: 20px; /* Add margin at the top */
+        }
+
+        /* Add new receptionist button hover effect */
+        .add-receptionist-button:hover {
+            opacity: 0.9;
+
+        }
+        .btn-link {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-left: 40px; /* Space between buttons */
+    text-decoration: none;
+        }
+
+          /* TITLE STYLES: MANAGE .... */
+          .title{
+            font-weight: bolder;
+            font-size: 30px;
+        }
+
+        /* Table styles */
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #000; /* Square borders for the entire table */
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #000; /* Square borders for each cell */
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold; /* Bold headers */
+        }
+
+        tr:first-child th { /* First row headers */
+            text-align: center; /* Centered headers */
+        }
+
+
+h5{
+        color: blue;
+        font-size: 25px;
+        text-decoration: underline;
+        margin: 0;
+        }
+
+   h4{
+        text-align: justify;
+        color: rgb(129, 126, 126);
+        line-height: 30px;
+        }
+
+           .highlight {
+            background-color: rgb(228, 228, 149); /* Change background color to highlight */
+            font-weight: bold; /* Optionally, make text bold for better visibility */
+        }
+
+        .notification {
+            color: white;
+            display: none;
+            position:absolute;
+            top: 48%;
+            left: 1.2%;
+            transform: translateY(-50%);
+            background-color: rgb(214, 95, 95);
+            border: 1px solid #ff0000;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(139, 129, 129, 0.3);
+        }
+
+
+    </style>
+</head>
+<body>
+
+<!--INCLUDE THE HEADER FILE-->
+    {% include 'header.html' %}
+
+    <!-- Container for managing receptionist -->
+    <div class="container">
+
+         <h5>WELCOME TO RECEPTIONIST MANAGEMENT PAGE</h5>
+     <h4>
+            The following table lists all receptionists in this system with their information. As an admin, you are
+            allowed to use the buttons in this table to manage them by editing their details, adding a
+            receptionist to the system or deleting a receptionist. To easily track a receptionist, you can use the
+            following search by username option :
+
+            <!-- Search input field -->
+<input type="text" id="search-input" placeholder="Search by Username">
+
+<div id="notification" class="notification"></div>
+
+        </h4>
+
+        <!-- Title for the section -->
+        <div class="title">
+            MANAGE RECEPTIONISTS
+        </div>
+
+        <!-- Table to display Receptionist information -->
+        <table>
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Location</th>
+                <th>Designation</th>
+                <th>Schedule</th>
+<!--                <th>Medical Records</th>-->
+<!--                <th>Blood Group</th>-->
+<!--                <th>Health Condition</th>-->
+<!--                <th>Allergies</th>-->
+                <th>Availability</th>
+                <th>Action</th>
+            </tr>
+
+            <!-- Loop through each Receptionist and display their information -->
+            {% for receptionist in receptionist %}
+            <tr>
+                <td>{{ receptionist[0].username }}</td>
+                <td>{{ receptionist[1] }}</td>
+                <td>{{ receptionist[2] }}</td>
+                <td>{{ receptionist[3] }}</td>
+                <td>{{ receptionist[4] }}</td>
+                <td>{{ receptionist[5] }}</td>
+                <td>{{ receptionist[6] }}</td>
+<!--                <td>{{ receptionist[7] }}</td>-->
+<!--                <td>{{ receptionist[8] }}</td>-->
+<!--                <td>{{ receptionist[9] }}</td>-->
+<!--                <td>{{ receptionist[10] }}</td>-->
+                <td>{{ receptionist[11] }}</td>
+
+                <td>
+                    <!-- Edit button -->
+                    <a href="{{ url_for('edit_receptionist', username=receptionist[0].username) }}" class="button edit-button">Edit</a>
+                    <!-- Delete button -->
+                    <a href="{{ url_for('confirm_delete_receptionist', username=receptionist[0].username) }}" class="button delete-button">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <!-- Button to add a new receptionist -->
+        <a href="add_receptionist" class="add-receptionist-button">Add New Receptionist</a>
+        <a class="btn-link" href="{{ url_for('manage_users') }}">Back</a>
+
+    </div>
+<!-- JavaScript for search functionality -->
+<script>
+    // Wait for the DOM content to be loaded before executing the script
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the search input element and notification element by their IDs
+        const searchInput = document.getElementById('search-input');
+        const notification = document.getElementById('notification');
+
+        // Add event listener for keydown event on the search input
+        searchInput.addEventListener('keydown', function(event) {
+            // Check if the pressed key is 'Enter'
+            if (event.key === 'Enter') {
+                // Trim and convert the search input value to lowercase
+                const searchText = this.value.trim().toLowerCase();
+                let found = false; // Initialize a variable to track if the search result is found
+
+                // Select all rows in the table
+                const rows = document.querySelectorAll('table tr');
+
+                // Loop through each row in the table
+                rows.forEach(row => {
+                    // Exclude the header row
+                    if (!row.classList.contains('header-row')) {
+                        // Get the text content of the first cell in the row and convert it to lowercase
+                        const usernameCell = row.cells[0].textContent.toLowerCase();
+
+                        // Check if the username in the row matches the search text
+                        if (usernameCell === searchText) {
+                            // Add highlight class to the row
+                            row.classList.add('highlight');
+
+                            // Scroll the highlighted row into view
+                            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            found = true; // Set found to true since a match is found
+
+                            // Remove highlight after 5 seconds (5000 milliseconds)
+                            setTimeout(function() {
+                                row.classList.remove('highlight');
+                            }, 5000);
+                        } else {
+                            // Remove highlight class from rows that don't match the search text
+                            row.classList.remove('highlight');
+                        }
+                    }
+                });
+
+                // If no matching username is found
+                if (!found) {
+                    // Display a notification
+                    notification.textContent = 'Receptionist not found.';
+                    notification.style.display = 'block';
+
+                    // Hide notification after 2 seconds (2000 milliseconds)
+                    setTimeout(function() {
+                        notification.style.display = 'none';
+                    }, 2000);
+                }
+
+                // Prevent the default behavior of the 'Enter' key (form submission)
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+
+</body>
+</html>
